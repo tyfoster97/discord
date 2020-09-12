@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/tyfoster97/discord/issues"
   },
-  "homepage": "https://github.com/tyfoster97/discord#readme"
+  "homepage": "https://github.com/tyfoster97/discord#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
 }
