@@ -6,7 +6,7 @@ module.exports.run = (client, message, args) => {
     message.channel.send(embed);
 }
 
-function getInfo(embed, cmd) {
+const getInfo = (embed, cmd) => {
     if (cmd === 'd') {
         embed.addField('Description', 'rolls a die with a user-specified number of sides');
         embed.addField('Use', '/d <number>');
