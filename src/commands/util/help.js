@@ -34,7 +34,7 @@ function getInfo(embed, cmd) {
         embed.addField('Use', '/fratx');
     }
     else {
-        embed.addField('Info', 'use ?<command-name> for more info:');
+        embed.addField('Info', 'use \?<command-name> for more info:');
         embed.addField('flipcoin', '');
         embed.addField('d','');
         embed.addField('hug', '');
