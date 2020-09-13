@@ -31,7 +31,7 @@ client.on('message', function(message) {
     else if(isHelp(message)) {
         //get help for command
         let cmdName = message.content.substring(message.content.indexOf(HELP_PREFIX)+1);
-        client.commands.get('help.js').run(client, message, cmdName);
+        client.commands.get('help').run(client, message, cmdName);
     }    
     else {
         console.log("Not a valid command");
