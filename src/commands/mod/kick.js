@@ -1,5 +1,5 @@
 module.exports.run = async(client, message, args) => {
-    if(!message.member.hasPermissions("KICK_MEMBERS")) {
+    if(!message.member.hasPermission("KICK_MEMBERS")) {
         message.reply("you do not have permission to do that.");
     }
     else {
