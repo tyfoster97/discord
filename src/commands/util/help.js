@@ -2,7 +2,7 @@ const discord = require("discord.js")
 module.exports.run = (client, message, args) => {
     let embed = new discord.MessageEmbed();
     embed.setTitle(args);
-    getInfo(embed, args);
+    embed = getInfo(embed, args);
     message.channel.send(embed);
 }
 
@@ -41,4 +41,5 @@ function getInfo(embed, cmd) {
         embed.addField('attention', '');
         embed.addField('potionseller', '');
     }
+    return embed;
 }
