@@ -4,9 +4,9 @@ module.exports.run = async(client, message, args) => {
     }
     else {
         try {
-            let bannedMember = await message.guild.members.ban(args);
+            let bannedMember = await message.guild.members.ban(args[0]);
             if(bannedMember) {
-                console.log.apply(bannedMemeber.tag + " was banned");
+                console.log.apply(args[0] + " was banned");
             }
         }
         catch(err) {
