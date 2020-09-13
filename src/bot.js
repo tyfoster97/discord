@@ -14,7 +14,6 @@ client.on('ready', () => {
 //check if command is in a valid format
 const isCmd = (message) => message.content.startsWith(PREFIX);
 const isHelp = (message) => message.content.startsWith(HELP_PREFIX);
-
 client.on('message', function(message) {
     if(message.author.bot) return; //don't reply if bot sent the message
     if(isCmd(message)) {
@@ -27,15 +26,7 @@ client.on('message', function(message) {
         else {
             console.log("command does not exist");
         }
-    }
-    else if(isHelp(message)) {
-        //get help for command
-        let cmdName = message.content.substring(message.content.indexOf(HELP_PREFIX)+1);
-        if (!cmdName) {
-            cmdName = '?';
-        }
-        client.commands.get('help').run(client, message, cmdName);
-    }    
+    }   
     else {
         console.log("Not a valid command");
     }
