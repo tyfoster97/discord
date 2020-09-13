@@ -34,7 +34,11 @@ function getInfo(embed, cmd) {
         embed.addField('Use', '/fratx');
     }
     else {
-        embed.setTitle('Possible commands');
-        embed.setDescription('use ?<command-name> for more info: \nflipcoin \nd \nhug \nattention \npotionseller \n');
+        embed.addField('Info', 'use ?<command-name> for more info:');
+        embed.addField('flipcoin', '');
+        embed.addField('d','');
+        embed.addField('hug', '');
+        embed.addField('attention', '');
+        embed.addField('potionseller', '');
     }
 }
