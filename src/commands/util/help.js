@@ -1,15 +1,16 @@
 const discord = require('discord.js');
 
 module.exports.run = (client, message, args) => {
-    
-    let fields = {};
+    let msg = '';
     if(args[0]) {
         console.log('oops');
     }
     else {
-        const embed = new discord.MessageEmbed()
-        .setTitle('Help')
-        .setDescription('use /help <command> for help with specific commands\n\nd \nflipcoin \nattention \nhug \npotionseller \n');
-        message.channel.send(embed);
+        msg = '**Commands**\n';
+        msg = msg + 'd\n';
+        msg = msg + 'flipcoin\n';
+        msg = msg + 'hug\n';
+        msg = msg + 'attention\n';
+        msg = msg + 'potionseller\n';
     }
 }
