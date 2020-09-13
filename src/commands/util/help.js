@@ -2,11 +2,11 @@ const discord = require("discord.js")
 const embed = new discord.MessageEmbed();
 module.exports.run = (client, message, args) => {
     embed.setTitle(args);
-    embed = getInfo(embed, args);
+    embed = getInfo(args);
     message.channel.send(embed);
 }
 
-const getInfo = (embed, cmd) => {
+function getInfo = (cmd) => {
     if (cmd === 'd') {
         embed.addField('Description', 'rolls a die with a user-specified number of sides');
         embed.addField('Use', '/d <number>');
@@ -34,7 +34,7 @@ const getInfo = (embed, cmd) => {
         embed.addField('Use', '/fratx');
     }
     else {
-        embed.addField('Info', 'use \?<command-name> for more info:');
+        embed.addField('Info', 'use ?<command-name> for more info:');
         embed.addField('flipcoin', '');
         embed.addField('d','');
         embed.addField('hug', '');
