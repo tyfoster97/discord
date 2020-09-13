@@ -4,7 +4,7 @@ const path = require('path');
 const discord = require('discord.js'); //discord dependency
 const client = new discord.Client(); //discord client
 PREFIX = process.env.PREFIX;
-ADMIN_PREFIX = process.env.ADMIN_PREFIX;
+HELP_PREFIX = process.env.HELP_PREFIX;
 client.login(process.env.BOT_TOKEN); //use bot token from env file
 client.commands = new Map();
 client.on('ready', () => {
@@ -13,14 +13,12 @@ client.on('ready', () => {
 
 //check if command is in a valid format
 const isCmd = (message) => message.content.startsWith(PREFIX);
-//flip a coin
-const flipCoin = () => Math.floor(Math.random() * 2);
-//roll a d20
-const rollD20 = () => Math.floor(Math.random() * 20) + 1;
+const isHelp = (message) => message.content.startsWith(HELP_PREFIX);
 
 client.on('message', function(message) {
     if(message.author.bot) return; //don't reply if bot sent the message
     if(isCmd(message)) {
+        //handle command
         cmdArgs = message.content.substring(message.content.indexOf(PREFIX)+1).split(new RegExp(/[\s+\,+\-+]/));
         let cmdName = cmdArgs.shift();
         if(client.commands.get(cmdName)) {
@@ -29,6 +27,11 @@ client.on('message', function(message) {
         else {
             console.log("command does not exist");
         }
+    }
+    else if(isHelp(message)) {
+        //get help for command
+        let cmdName = message.content.substring(message.content.indexOf(HELP_PREFIX)+1);
+        client.commands.get('help').run(client, message, cmdName);
     }    
     else {
         console.log("Not a valid command");
