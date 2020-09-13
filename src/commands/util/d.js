@@ -2,7 +2,7 @@
 const { rollDice } = require('../../utils/roll');
 
 module.exports.run = async(client, message, args) => {
-    if (args < 100) {
+    if (args <= 100) {
         message.reply("rolled a " + rollDice(args));
     }
     else {
