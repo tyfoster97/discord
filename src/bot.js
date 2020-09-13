@@ -22,12 +22,17 @@ client.on('message', function(message) {
     if(message.author.bot) return; //don't reply if bot sent the message
     if(isCmd(message)) {
         cmdArgs = message.content.substring(message.content.indexOf(PREFIX)+1).split(new RegExp(/[\s+\,+\-+]/));
-        console.log(cmdArgs);
         let cmdName = cmdArgs.shift();
         if(client.commands.get(cmdName)) {
             client.commands.get(cmdName).run(client, message, cmdArgs);
         }
+        else {
+            console.log("command does not exist");
+        }
     }    
+    else {
+        console.log("Not a valid command");
+    }
 });
 
 (async function registerCommands(dir = 'commands') {
@@ -48,20 +53,3 @@ client.on('message', function(message) {
         }
     }
 })()
-
-//checks if user is 18+ and allows access to nsfw channels
-function check18Plus(message) {
-    let args = message.content.substring();
-    let { cache } = message.guild.roles;
-    let role = cache.find(role => "18+");
-
-    //if 18+ {
-        message.member.roles.add(role).catch(err => {
-            console.log(err);
-        });
-    //}
-    //else {
-        //do nothing
-    //}
-
-}
