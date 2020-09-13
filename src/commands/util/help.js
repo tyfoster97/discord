@@ -7,7 +7,7 @@ module.exports.run = (client, message, args) => {
         console.log('oops');
     }
     else {
-        let embed = new discord.MessageEmbed()
+        const embed = new discord.MessageEmbed()
         .setTitle('Help')
         .setDescription('use /help <command> for help with specific commands\n\nd \nflipcoin \nattention \nhug \npotionseller \n');
         message.channel.send(embed);
