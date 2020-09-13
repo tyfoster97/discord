@@ -32,7 +32,7 @@ client.on('message', function(message) {
         //get help for command
         let cmdName = message.content.substring(message.content.indexOf(HELP_PREFIX)+1);
         if (!cmdName) {
-            cmdName = ' ';
+            cmdName = '?';
         }
         client.commands.get('help').run(client, message, cmdName);
     }    
