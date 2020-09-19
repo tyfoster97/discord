@@ -4,8 +4,7 @@ const path = require('path');
 const discord = require('discord.js'); //discord dependency
 const client = new discord.Client(); //discord client
 PREFIX = process.env.PREFIX;
-HELP_PREFIX = process.env.HELP_PREFIX;
-client.login(process.env.BOT_TOKEN); //use bot token from env file
+client.login(process.env.bot_token); //use bot token from env file
 client.commands = new Map();
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged on`);
@@ -13,7 +12,6 @@ client.on('ready', () => {
 
 //check if command is in a valid format
 const isCmd = (message) => message.content.startsWith(PREFIX);
-const isHelp = (message) => message.content.startsWith(HELP_PREFIX);
 client.on('message', function(message) {
     if(message.author.bot) return; //don't reply if bot sent the message
     if(isCmd(message)) {
