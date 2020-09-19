@@ -10,7 +10,7 @@ const discord = require('discord.js'); //discord dependency
 const client = new discord.Client(); //discord client
 
 PREFIX = process.env.PREFIX;
-client.login(process.env.bot_token); //use bot token from env file
+client.login(process.env.BOT_TOKEN); //use bot token from env file
 
 client.commands = new Map();
 client.on('ready', () => {
