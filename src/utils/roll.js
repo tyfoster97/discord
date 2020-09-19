@@ -1,3 +1,5 @@
-const rollDice = (sides) => Math.floor(Math.random() * sides) + 1;
+const rollDice = sides => Math.floor(Math.random() * sides) + 1;
 
-module.exports = { rollDice };
+module.exports = {
+  rollDice
+};
