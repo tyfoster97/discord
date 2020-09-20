@@ -8,7 +8,11 @@
 > Stable release of _mombot
 
 **dev**
+<<<<<<< HEAD
 > Stable dev branch during for sprints
+=======
+> Stable dev branch during sprints
+>>>>>>> 2afe1ba8be1b2fcce87dfaec8cb757a4d0688108
 
 **i#n**
 > branch for issue #n
@@ -19,15 +23,16 @@
 ### Commit Rules
 
 - All commit messages should be under 80 characters and describe the changes made
-- All commits should be on dev, or a specific issue or feature branch
-- As needed, commits should have an in depth description
-- Commits to master branch are allowed only for .md files
+<<<<<<< HEAD
+- As needed, commits should have an description
+- Commits to dev branch are allowed after test
 
-### Pull Request Rules
+### Pull Request & Merge Rules
 
-- All Pull Requests should be titled 'Closes #n' or 'Resolves #n, etc'
-- All Pull Requests require at least one review
-- Pull Requests can be done into dev or master
+- Pull request required for changes to master
+- dev can have merge or pulls, merge commits for issue branches should close the issue
+- Code should be locally tested before merging into dev
+- Code should be develloped off of dev
 
 ### Code Quality
 
@@ -41,7 +46,11 @@
     - *excludes getters and setters*
 - All files should have header comments
 - As needed, lines of code should be commented
+<<<<<<< HEAD
 - All conditions should have inline comments
+=======
+- All conditions should have comments
+>>>>>>> 2afe1ba8be1b2fcce87dfaec8cb757a4d0688108
 
 ### Testing
 

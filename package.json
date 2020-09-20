@@ -2,11 +2,11 @@
   "name": "discord",
   "version": "1.0.0",
   "description": "",
-  "main": "src/bot.js",
+  "main": "lib/bot.js",
   "scripts": {
-    "test": "jest",
+    "test": "bash test.sh",
     "lavalink": "java -jar lib/Lavalink.jar",
-    "build": "babel src -d src"
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
