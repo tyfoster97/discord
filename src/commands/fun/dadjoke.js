@@ -1,3 +1,13 @@
-module.exports.run = async (client, message, args) => {
-    message.channel.send('Hi, ' + args.join(' ') + ' I\'m _mombot!');
+module.exports.run = async (client, message, arg) => {
+  var phrase = '';
+
+  if (arg == 1 || arg == 2) {
+    //if message starts with im or i'm
+    phrase = message.content.substring(message.content.indexOf(' ') + 1);
+  } else if (arg == 3) {
+    //if message starts with i am
+    phrase = messafe.content.substring(message.content.indexOf(' ', 2) + 1);
+  }
+
+  message.channel.send('Hi, ' + phrase + ' I\'m _mombot!');
 };
