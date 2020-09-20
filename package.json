@@ -2,10 +2,10 @@
   "name": "discord",
   "version": "1.0.0",
   "description": "",
-  "main": "src/bot.js",
+  "main": "lib/bot.js",
   "scripts": {
-    "test": "jest",
-    "build": "babel src -d src"
+    "test": "bash test.sh",
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
