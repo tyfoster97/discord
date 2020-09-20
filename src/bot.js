@@ -4,18 +4,27 @@ const fs = require('fs').promises;
 
 const path = require('path');
 
-const discord = require('discord.js'); //discord dependency
+const { Client } = require('discord.js'); //discord dependency
 
+const { ErelaClient } = require('erela.js'); //erela dependency
 
-const client = new discord.Client(); //discord client
+const client = new Client(); //discord client
 
 PREFIX = process.env.PREFIX;
-client.login(process.env.BOT_TOKEN); //use bot token from env file
+  client.login(process.env.BOT_TOKEN); //use bot token from env file
+  client.music = new ErelaClient(client, [
+    {
+      host: process.env.HOST,
+      port: process.env.PORT,
+      password: process.env.PASSWORD
+    }
+  ]);
+  client.commands = new Map();
+  client.on('ready', () => {
+    console.log(`${client.user.tag} has logged on`);
+  }); //check if command is in a valid format
+  client.music.on('nodeConnect', node => console.log(node));
 
-client.commands = new Map();
-client.on('ready', () => {
-  console.log(`${client.user.tag} has logged on`);
-}); //check if command is in a valid format
 
 const isCmd = message => message.content.toLowerCase().startsWith(PREFIX);
 
