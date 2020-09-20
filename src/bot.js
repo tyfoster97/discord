@@ -17,7 +17,12 @@ client.on('ready', () => {
   console.log(`${client.user.tag} has logged on`);
 }); //check if command is in a valid format
 
-const isCmd = message => message.content.startsWith(PREFIX);
+const isCmd = message => message.content.toLowerCase().startsWith(PREFIX);
+const dadMode = message => {
+  return message.content.toLowerCase().startsWith('im')
+  || message.content.toLowerCase().startsWith('i am')
+  || message.content.toLowerCase().startsWith('i\'m');
+}
 
 client.on('message', function (message) {
   if (message.author.bot) return; //don't reply if bot sent the message
@@ -32,6 +37,9 @@ client.on('message', function (message) {
     } else {
       console.log("command does not exist");
     }
+  } else if (dadMode(message)) {
+    client.commands.get('dadjoke').run(client, message, cmdArgs);
+    console.log("dad joke made");
   } else {
     console.log("Not a valid command");
   }
