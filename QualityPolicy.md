@@ -21,7 +21,6 @@
 ### Commit Rules
 
 - All commit messages should be under 80 characters and describe the changes made
-<<<<<<< HEAD
 - As needed, commits should have an description
 - Commits to dev branch are allowed after test
 
