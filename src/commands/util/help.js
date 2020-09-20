@@ -31,7 +31,7 @@ function commands(message) {
       { name: 'd', value: 'roll a many sided die' },
       { name: 'flipcoin', value: 'flip a coin' },
       { name: 'attention', value: 'have _mombot give you attention' },
-      { name: 'hug', value: 'get a hug from _mombot' }
+      { name: 'hug', value: 'give someone a hug from _mombot' }
     );
   message.channel.send(m);
 };
