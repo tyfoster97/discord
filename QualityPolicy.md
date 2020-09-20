@@ -8,11 +8,9 @@
 > Stable release of _mombot
 
 **dev**
-<<<<<<< HEAD
-> Stable dev branch during for sprints
-=======
+
 > Stable dev branch during sprints
->>>>>>> 2afe1ba8be1b2fcce87dfaec8cb757a4d0688108
+
 
 **i#n**
 > branch for issue #n
