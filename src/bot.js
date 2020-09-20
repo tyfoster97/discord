@@ -18,27 +18,40 @@ client.on('ready', () => {
 }); //check if command is in a valid format
 
 const isCmd = message => message.content.toLowerCase().startsWith(PREFIX);
+
 const dadMode = message => {
-  return message.content.toLowerCase().startsWith('im')
-  || message.content.toLowerCase().startsWith('i am')
-  || message.content.toLowerCase().startsWith('i\'m');
-}
+  if (message.content.toLowerCase().startsWith('im')) {
+    //if message starts with im
+    return 1;
+  } else if (message.content.toLowerCase().startsWith('i\'m')) {
+    //if message starts with i'm
+    return 2;
+  } else if (message.content.toLowerCase().startsWith('i am')) {
+    //if message starts with i am
+    return 3;
+  } else {
+    return 0;
+  }
+};
 
 client.on('message', function (message) {
   if (message.author.bot) return; //don't reply if bot sent the message
 
   if (isCmd(message)) {
+    //if message is a command
     //handle command
     cmdArgs = message.content.substring(message.content.indexOf(PREFIX) + 1).split(new RegExp(/[\s+\,+\-+]/));
     let cmdName = cmdArgs.shift();
 
     if (client.commands.get(cmdName)) {
+      //if command exists
       client.commands.get(cmdName).run(client, message, cmdArgs);
     } else {
       console.log("command does not exist");
     }
-  } else if (dadMode(message)) {
-    client.commands.get('dadjoke').run(client, message, cmdArgs);
+  } else if (dadMode(message) != 0) {
+    //if message can be made a dadjoke
+    client.commands.get('dadjoke').run(client, message, dadMode(message));
     console.log("dad joke made");
   } else {
     console.log("Not a valid command");
@@ -52,13 +65,19 @@ client.on('message', function (message) {
 
   for (let file of files) {
     let stat = await fs.lstat(path.join(__dirname, dir, file));
-    if (stat.isDirectory()) registerCommands(path.join(dir, file));else {
+
+    if (stat.isDirectory()) {
+      //if directory
+      registerCommands(path.join(dir, file)); //call again
+    } else {
       if (file.endsWith(".js")) {
-        let cmdName = file.substring(0, file.indexOf(".js"));
+        //if .js file
+        let cmdName = file.substring(0, file.indexOf(".js")); //get cmdName
 
-        let cmdModule = require(path.join(__dirname, dir, file));
+        let cmdModule = require(path.join(__dirname, dir, file)); //import command module
 
-        client.commands.set(cmdName, cmdModule);
+
+        client.commands.set(cmdName, cmdModule); //get cmdName
       }
     }
   }
