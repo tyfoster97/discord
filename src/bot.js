@@ -23,7 +23,7 @@ const dadMode = message => {
   if (message.content.toLowerCase().startsWith('im')) {
     //if message starts with im
     return 1;
-  } else if (message.content.toLowerCase().startsWith('i\'m')) {
+  } else if (message.content.toLowerCase().startsWith("i'm") || message.content.toLowerCase().startsWith("i’m")) {
     //if message starts with i'm
     return 2;
   } else if (message.content.toLowerCase().startsWith('i am')) {
