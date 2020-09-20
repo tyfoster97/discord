@@ -46,11 +46,7 @@
     - *excludes getters and setters*
 - All files should have header comments
 - As needed, lines of code should be commented
-<<<<<<< HEAD
-- All conditions should have inline comments
-=======
 - All conditions should have comments
->>>>>>> 2afe1ba8be1b2fcce87dfaec8cb757a4d0688108
 
 ### Testing
 
