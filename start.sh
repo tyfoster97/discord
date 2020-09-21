@@ -1,6 +1,6 @@
 while true
 do
-echo building from src
+echo Building bot
 npm run build
 echo Starting bot
 nodemon lib/bot.js
