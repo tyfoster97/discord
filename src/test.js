@@ -76,7 +76,6 @@ client.on('message', function (message) {
 
         let cmdModule = require(path.join(__dirname, dir, file)); //import command module
 
-
         client.commands.set(cmdName, cmdModule); //get cmdName
       }
     }
