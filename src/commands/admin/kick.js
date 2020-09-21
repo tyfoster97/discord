@@ -10,23 +10,12 @@ function getReason(args) {
     return rsn;
 };
 
-function kick(member, args) {
-    member
-    .kick({
-        reason: getReason(args)
-    })
-    .catch(err => {
-        console.log(err);
-        return false;
-    })
-    return true;
-};
-
 /* Handles kick command */
 module.exports.run = async (client, message, args) => {
     //if author has permission to kick users
     if (message.author.flags.has(Permissions.KICK_MEMEBERS)) {
-        const user = message.mentions.user.first();
+        const user = message.mentions.users.first();
+        console.log(message.mentions.users);
         //if there is a mentioned user
         if (user) {
             const member = message.guild.member(user);
@@ -34,22 +23,25 @@ module.exports.run = async (client, message, args) => {
             if (member) {
                 args.shift();
                 //if kick was successful
-                if (kick(member, args)) {
+                member
+                .kick(getReason(args))
+                .then(() => {
                     const msg = new MessageEmbed()
                     .setColor(botColor)
                     .setTitle('Member kicked')
                     .setDescription(`Successfully kicked ${user.tag}`)
                     .addField('Reason', getReason(args));
                     message.reply(msg);
-                } else {
+                })
+                .catch(err => {
                     const msg = new MessageEmbed()
                     .setColor(botColor)
                     .setTitle('Unable to kick member')
                     .setDescription(`Could not kick ${user.tag}`);
-                    let m = await message.reply(msg);
-                    await m.delete({timeout: 5000})
+                    let m = message.reply(msg);
+                    m.delete({timeout: 5000})
                     .catch(err => console.log(err));
-                }
+                });
             } else {
                 //send error message and delete after 5s
                 const msg = new MessageEmbed()

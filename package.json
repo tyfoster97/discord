@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/bot.js",
   "scripts": {
-    "test": "bash test.sh",
+    "test": "npm run build\nbash test.sh",
     "build": "babel src -d lib"
   },
   "repository": {
