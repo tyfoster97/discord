@@ -49,11 +49,11 @@ client.on('message', function (message) {
     } else {
       console.log("command does not exist");
     }
-  } else if (dadMode(message) != 0) {
+  } /*else if (dadMode(message) != 0) {
     //if message can be made a dadjoke
     client.commands.get('dadjoke').run(client, message, dadMode(message));
     console.log("dad joke made");
-  } else {
+  }*/ else {
     console.log("Not a valid command");
   }
 });

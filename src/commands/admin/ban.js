@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { noPermission, selfUseError } = require("./errormsg");
+const { noPermission, selfUseError, invalidUser } = require("./errormsg");
 
 const botColor = process.env.COLOR;
 
@@ -40,7 +40,7 @@ module.exports.run = async (client, message, args) => {
                 if (member) {
                     args.shift(); //pop user name off of args
                     //if ban was successful
-                    if (ban(member, args)) {
+                    if (!member.hasPermission('BAN_MEMBERS') && ban(member, args)) {
                         const msg = new MessageEmbed()
                             .setColor(botColor)
                             .setTitle('Member banned')
@@ -57,34 +57,19 @@ module.exports.run = async (client, message, args) => {
                             .catch(err => console.log(err));
                     }
                 } else {
-                    //send error message and delete after 5s
-                    const msg = new MessageEmbed()
-                        .setColor(botColor)
-                        .setTitle('User not in server')
-                        .setDescription('Command should ban user in the server');
-                    let m = await message.reply(msg);
-                    await m.delete({ timeout: 5000 })
-                        .catch(err => console.log(err));
+                    //inform user the member could not be found
+                    await invalidUser(message, 'ban');
                 }
             } else {
                 //cannot call command on yourself error
                 await selfUseError(message, 'ban');
             }
         } else {
-            //send error message and delete after 10s
-            const msg = new MessageEmbed()
-                .setColor(botColor)
-                .setTitle('No user mentioned')
-                .setDescription('Command should be of the form /ban @<user> [reason]')
-                .addFields({
-                    name: 'Examples', value: '/ban @_mombot She\'s annoying\n/ban @_mombot'
-                });
-            let m = await message.reply(msg);
-            await m.delete({ timeout: 10000 })
-                .catch(err => console.log(err));
+            //inform user the member is not in the server
+            await invalidUser(message, 'ban');
         }
     } else {
-        //send error message and delete after  5s
+        //inform user they do not have permissions
         await noPermission(message, 'ban');
     }
 };
