@@ -8,10 +8,11 @@ _mombot is a discord server bot that provides multiple functions generally provi
 - Gives hugs
 - Rolls many sided die
 - Flips a coin (but makes it gay)
+- ban and kick members with commands
 
 ## Coming soon:
 
+- emoji role assignment
 - play music
 - member voting
 - happy birthday
-    - NSFW role assignment
