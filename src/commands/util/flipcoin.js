@@ -1,5 +1,3 @@
-const { flipcoin } = require("./help");
-
 const { flipcoin } = require('./help');
 
 //flips a coin and replies to user with the result

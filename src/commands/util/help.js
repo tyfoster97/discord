@@ -95,7 +95,7 @@ async function attention(message) {
 
 /* send embed message for hug */
 async function hug(message) {
-  const m = new discord.MessageEmbed()
+  const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('/hug <hugged>')
     .setDescription('gives a hug to the <hugged>')
