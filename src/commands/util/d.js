@@ -8,6 +8,6 @@ module.exports.run = async (client, message, args) => {
   if (args > 0 && args <= 100) {
     message.reply("rolled a " + rollDice(args));
   } else {
-    await d(message); //inform user of proper usage
+    await d(client, message); //inform user of proper usage
   }
 };

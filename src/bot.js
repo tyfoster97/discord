@@ -1,33 +1,29 @@
 require('dotenv').config();
-
 const fs = require('fs').promises;
-
 const path = require('path');
-
 const { Client } = require('discord.js'); //discord dependency
-
-const { ErelaClient } = require('erela.js'); //erela dependency
+/* const { ErelaClient } = require('erela.js'); //erela dependency */
+const { testing, errorLog, infoLog, inform } = require('./utils/log.js');
 
 const client = new Client(); //discord client
 
 PREFIX = process.env.PREFIX;
-  client.login(process.env.BOT_TOKEN); //use bot token from env file
-  client.music = new ErelaClient(client, [
-    {
-      host: process.env.HOST,
-      port: process.env.PORT,
-      password: process.env.PASSWORD
-    }
-  ]);
-  client.commands = new Map();
-  client.on('ready', () => {
-    console.log(`${client.user.tag} has logged on`);
-  }); //check if command is in a valid format
-  client.music.on('nodeConnect', node => console.log(node));
-
-
+client.login(process.env.BOT_TOKEN); //use bot token from env file
+/* client.music = new ErelaClient(client, [
+  {
+    host: process.env.HOST,
+    port: process.env.PORT,
+    password: process.env.PASSWORD
+  }
+]); */
+client.commands = new Map();
+client.on('ready', () => {
+  testing(false);
+  infoLog(client, `${client.user.tag} has logged on`);
+}); //check if command is in a valid format
+/* client.music.on('nodeConnect', node => console.log(node)); */
 const isCmd = message => message.content.toLowerCase().startsWith(PREFIX);
-
+/*
 const dadMode = message => {
   if (message.content.toLowerCase().startsWith('im')) {
     //if message starts with im
@@ -42,7 +38,7 @@ const dadMode = message => {
     return 0;
   }
 };
-
+*/
 client.on('message', function (message) {
   if (message.author.bot) return; //don't reply if bot sent the message
 
@@ -65,6 +61,18 @@ client.on('message', function (message) {
   }*/ else {
     //do nothing
   }
+  client.on('error', function(error) {
+    errorLog(client, message, error);
+    inform(message);
+  });
+  process.on('uncaughtException', function(error) {
+    errorLog(client, message, error);
+    inform(message);
+  });
+  process.on('unhandledRejection', function(reason, promise) {
+    errorLog(client, message, reason);
+    inform(message);
+  });
 });
 
 (async function registerCommands(dir = 'commands') {

@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { noPermission, selfUseError, invalidUser } = require("./errormsg");
+const { errorLog } = require('../../utils/log');
 
 const botColor = process.env.COLOR;
 
@@ -13,13 +14,13 @@ function getReason(args) {
 }
 
 //ban member
-function ban(member, args) {
+function ban(client, message, member, args) {
     member
         .ban({
             reason: getReason(args),
         })
         .catch(err => {
-            console.log(err);
+            errorLog(client, message, err);
             return false;
         });
     return true;
@@ -54,22 +55,22 @@ module.exports.run = async (client, message, args) => {
                             .setDescription(`Could not ban ${user.tag}`);
                         let m = await message.reply(msg);
                         await m.delete({ timeout: 10000 })
-                            .catch(err => console.log(err));
+                            .catch(err => errorLog(client, message, err));
                     }
                 } else {
                     //inform user the member could not be found
-                    await invalidUser(message, 'ban');
+                    await invalidUser(client, message, 'ban');
                 }
             } else {
                 //cannot call command on yourself error
-                await selfUseError(message, 'ban');
+                await selfUseError(client, message, 'ban');
             }
         } else {
             //inform user the member is not in the server
-            await invalidUser(message, 'ban');
+            await invalidUser(client, message, 'ban');
         }
     } else {
         //inform user they do not have permissions
-        await noPermission(message, 'ban');
+        await noPermission(client, message, 'ban');
     }
 };

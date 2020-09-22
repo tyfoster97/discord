@@ -1,33 +1,34 @@
 /* Provides error message handling for functions */
 
 const { MessageEmbed } = require("discord.js");
+const { errorLog } = require('../../utils/log');
 
 const color = process.env.COLOR;
 
 //handle insufficient permissions
-async function noPermission(message, cmd) {
+async function noPermission(client, message, cmd) {
     const msg = new MessageEmbed()
         .setColor(color)
         .setTitle('Insufficient Permissions')
         .setDescription('You do not have permission to ' + cmd + ' members');
     let m = await message.reply(msg);
     await m.delete({ timeout: 10000 })
-        .catch(err => console.log(err));
+        .catch(err => errorLog(client, message, err));
 };
 
 //error message when user tries to ban or kick themselves
-async function selfUseError(message, cmd) {
+async function selfUseError(client, message, cmd) {
     const msg = new MessageEmbed()
         .setColor(color)
         .setTitle('Invalid user')
         .setDescription('You cannot ' + cmd + ' yourself');
     let m = await message.reply(msg);
     await m.delete({ timeout: 10000 })
-        .catch(err => console.log(err));
+        .catch(err => errorLog(client, message, err));
 }
 
 //user error message
-async function invalidUser(message, cmd) {
+async function invalidUser(client, message, cmd) {
     const msg = new MessageEmbed()
         .setColor(color)
         .setTitle('Invalid user')
@@ -35,7 +36,7 @@ async function invalidUser(message, cmd) {
         .addField('Example', '/' + cmd + ' @_mombot\n/' + cmd + '@_mombot they are annoying');
     let m = await message.reply(msg);
     await m.delete({ timeout: 15000 })
-        .catch(err => console.log(err));
+        .catch(err => errorLog(client, message, err));
 };
 
 module.exports = {
