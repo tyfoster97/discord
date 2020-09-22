@@ -56,14 +56,14 @@ client.on('message', function (message) {
       //if command exists
       client.commands.get(cmdName).run(client, message, cmdArgs);
     } else {
-      console.log("command does not exist");
+      client.commands.get('help').run(client, message, cmdArgs);
     }
-  } else if (dadMode(message) != 0) {
+  } /*else if (dadMode(message) != 0) {
     //if message can be made a dadjoke
     client.commands.get('dadjoke').run(client, message, dadMode(message));
     console.log("dad joke made");
-  } else {
-    console.log("Not a valid command");
+  }*/ else {
+    //do nothing
   }
 });
 
@@ -84,7 +84,6 @@ client.on('message', function (message) {
         let cmdName = file.substring(0, file.indexOf(".js")); //get cmdName
 
         let cmdModule = require(path.join(__dirname, dir, file)); //import command module
-
 
         client.commands.set(cmdName, cmdModule); //get cmdName
       }
