@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { noPermission, selfUseError, invalidUser } = require("./errormsg");
-const { errorLog } = require('../../utils/errorlog');
+const { errorLog } = require('../../utils/log');
 
 const color = process.env.COLOR;
 

@@ -1,7 +1,8 @@
 echo Building bot
-npm run build
 echo Building test file
-node lib/build-test.js
+node src/build-test.js
+npm run build
+sleep 1
 echo Running test bot
 node lib/test.js
 echo test bot crashed

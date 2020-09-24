@@ -29,17 +29,18 @@ function testing(bool) {
  * @param {Message} message the message the user sent that caused the error
  * @param {Error} error the error thrown
  */
-function errorLog(client, message, error) {
+async function errorLog(client, message, error) {
     const msg = new MessageEmbed()
         .setColor(warn)
         .setTitle('Error Log')
         .addFields(
             { name: 'User', value: `${message.author.tag}` },
             { name: 'Input', value: message.content },
-            { name: 'Error', value: error.toString() }
+            { name: 'Error', value: error.toString() },
+            { name: 'Stacktrace', value: error.stack.toString() }
         );
     client.channels.cache.get(id).send(msg);
-    client.channels.cache.get(id).send(error.stack.toString());
+    //client.channels.cache.get(id).send(error.stack.toString());
 };
 
 /**
@@ -47,7 +48,7 @@ function errorLog(client, message, error) {
  * @param {Client} client the client being used by the bot
  * @param {string} info the information to display to the channel
  */
-function infoLog(client, info) {
+async function infoLog(client, info) {
     const msg = new MessageEmbed()
         .setColor(color)
         .setTitle('INFO')

@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const { errorLog } = require('../../utils/errorlog');
+const { errorLog } = require('../../utils/log');
 
 const color = process.env.COLOR; //bot color in server
 
