@@ -18,7 +18,7 @@ async function noPermission(client, message, cmd) {
     const msg = new MessageEmbed()
         .setColor(color)
         .setTitle('Insufficient Permissions')
-        .setDescription('You do not have permission to ' + cmd + ' members');
+        .setDescription('You do not have permission to ' + cmd);
     let m = await message.reply(msg);
     //auto-delete message
     await m.delete({ timeout: 10000 })
