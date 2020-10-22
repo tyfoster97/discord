@@ -1,3 +1,9 @@
+/**
+ * @author Ty Foster
+ * @version 2020.10.21
+ * 
+ * Handles providing a help message to the user
+ */
 const discord = require('discord.js');
 const { errorLog } = require('../../utils/log');
 
@@ -23,10 +29,10 @@ module.exports = {
         //if command is potionseller
         await potionseller(client, message);
       } else {
-        await commands(client, message);
+        commands(client, message);
       }
     } else {
-      await commands(client, message);
+      commands(client, message);
     }
   },
   commands,
@@ -38,7 +44,7 @@ module.exports = {
 };
 
 /* print all commands in embed message */
-async function commands(client, message) {
+function commands(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('Commands')
@@ -50,9 +56,7 @@ async function commands(client, message) {
       { name: 'attention', value: 'have _mombot give you attention' },
       { name: 'hug', value: 'give someone a hug from _mombot' }
     );
-  let m = await message.channel.send(msg);
-  await m.delete({ timeout: 30000 })
-    .catch(err => errorLog(client, message, err));
+  message.channel.send(msg);
 };
 
 /* send embed message for d */

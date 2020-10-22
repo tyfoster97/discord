@@ -1,9 +1,18 @@
+/**
+ * @author Ty Foster
+ * @summary Handles kicking a member
+ * @version 2020.10.21
+ */
 const { MessageEmbed } = require('discord.js');
 const { noPermission, selfUseError, invalidUser } = require("./errormsg");
 const { errorLog } = require('../../utils/log');
 
 const color = process.env.COLOR;
 
+/**
+ * Obtains reason for kick from arguments
+ * @param {string[]} args array of arguments in the command line
+ */
 function getReason(args) {
     let rsn = 'They did a bad thing, but not bad enough to ban';
     //if a reason is given use that instead
@@ -13,6 +22,13 @@ function getReason(args) {
     return rsn;
 };
 
+/**
+ * Handles kicking a member
+ * @param {Client} client discord client
+ * @param {Message} message message sent
+ * @param {Member} member member to kick
+ * @param {string[]} args command line args
+ */
 function kick(client, message, member, args) {
     member
         .kick(getReason(args))

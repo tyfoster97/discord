@@ -1,3 +1,8 @@
+/**
+ * @author Ty Foster
+ * @version 2020.10.21
+ * Provides a list of iconic videos on youtube
+ */
 const { potionseller } = require('../util/help');
 
 module.exports.run = async (client, message, args) => {

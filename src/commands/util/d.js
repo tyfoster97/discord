@@ -1,4 +1,9 @@
-//rolls a d20 for a user
+/**
+ * @author Ty Foster
+ * @version 2020.10.21
+ * 
+ * simulates a dice roll of a multisided die
+ */
 const { rollDice } = require('../../utils/roll');
 
 const { d } = require('./help');
