@@ -1,4 +1,11 @@
+/**
+ * @author Ty Foster
+ * @version 2020.10.21
+ * 
+ * Handles providing a help message to the user
+ */
 const discord = require('discord.js');
+const { errorLog } = require('../../utils/log');
 
 const color = process.env.COLOR; //bot color in server
 
@@ -8,24 +15,24 @@ module.exports = {
       //if there is a command being checked for help
       if (args[0] == 'd') {
         //if command is d
-        await d(message);
+        await d(client, message);
       } else if (args[0] == 'flipcoin') {
         //if command is flipcoin
-        await flipcoin(message);
+        await flipcoin(client, message);
       } else if (args[0] == 'attention') {
         //if command is attention
-        await attention(message);
+        await attention(client, message);
       } else if (args[0] == 'hug') {
         //if command is hug
-        await hug(message);
+        await hug(client, message);
       } else if (args[0] == 'potionseller') {
         //if command is potionseller
-        await potionseller(message);
+        await potionseller(client, message);
       } else {
-        await commands(message);
+        commands(client, message);
       }
     } else {
-      await commands(message);
+      commands(client, message);
     }
   },
   commands,
@@ -37,7 +44,7 @@ module.exports = {
 };
 
 /* print all commands in embed message */
-async function commands(message) {
+function commands(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('Commands')
@@ -49,13 +56,11 @@ async function commands(message) {
       { name: 'attention', value: 'have _mombot give you attention' },
       { name: 'hug', value: 'give someone a hug from _mombot' }
     );
-  let m = await message.channel.send(msg);
-  await m.delete({ timeout: 30000 })
-    .catch(err => console.log(err));
+  message.channel.send(msg);
 };
 
 /* send embed message for d */
-async function d(message) {
+async function d(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('/d <num_sides>')
@@ -66,11 +71,11 @@ async function d(message) {
     );
   let m = await message.channel.send(msg);
   await m.delete({ timeout: 30000 })
-    .catch(err => console.log(err));
+    .catch(err => errorLog(client, message, err));
 };
 
 /* send embed message for flipcoin */
-async function flipcoin(message) {
+async function flipcoin(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('/flipcoin')
@@ -78,11 +83,11 @@ async function flipcoin(message) {
     .addField('Example', '/flipcoin');
   let m = await message.channel.send(msg);
   await m.delete({ timeout: 30000 })
-    .catch(err => console.log(err));
+    .catch(err => errorLog(client, message, err));
 };
 
 /* send embed message for attention */
-async function attention(message) {
+async function attention(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('/attention')
@@ -90,11 +95,11 @@ async function attention(message) {
     .addField('Example', '/attention');
   let m = await message.channel.send(msg);
   await m.delete({ timeout: 30000 })
-    .catch(err => console.log(err));
+    .catch(err => errorLog(client, message, err));
 };
 
 /* send embed message for hug */
-async function hug(message) {
+async function hug(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('/hug <hugged>')
@@ -102,11 +107,11 @@ async function hug(message) {
     .addField('Example', '/hug a cactus');
   let m = await message.channel.send(msg);
   await m.delete({ timeout: 30000 })
-    .catch(err => console.log(err));
+    .catch(err => errorLog(client, message, err));
 };
 
 /* send embed message for potion seller */
-async function potionseller(message) {
+async function potionseller(client, message) {
   const msg = new discord.MessageEmbed()
     .setColor(color)
     .setTitle('/potionseller')
@@ -114,5 +119,5 @@ async function potionseller(message) {
     .addField('Example', '/potionseller');
   let m = await message.channel.send(msg);
   await m.delete({ timeout: 30000 })
-    .catch(err => console.log(err));
+    .catch(err => errorLog(client, message, err));
 };

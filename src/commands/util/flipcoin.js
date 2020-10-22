@@ -4,7 +4,7 @@ const { flipcoin } = require('./help');
 module.exports.run = async (client, message, args) => {
   //if arguments were given
   if (args[0]) {
-    await flipcoin(message); //inform proper usage
+    await flipcoin(client, message); //inform proper usage
   } else {
     let coin = Math.floor(Math.random() * 10000);
 
