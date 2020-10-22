@@ -1,8 +1,18 @@
-const { MessageEmbed, Permissions } = require('discord.js');
+/**
+ * @author Ty Foster
+ * @summary Handles kicking a member
+ * @version 2020.10.21
+ */
+const { MessageEmbed } = require('discord.js');
 const { noPermission, selfUseError, invalidUser } = require("./errormsg");
+const { errorLog } = require('../../utils/log');
 
 const color = process.env.COLOR;
 
+/**
+ * Obtains reason for kick from arguments
+ * @param {string[]} args array of arguments in the command line
+ */
 function getReason(args) {
     let rsn = 'They did a bad thing, but not bad enough to ban';
     //if a reason is given use that instead
@@ -12,11 +22,18 @@ function getReason(args) {
     return rsn;
 };
 
-function kick(member, args) {
+/**
+ * Handles kicking a member
+ * @param {Client} client discord client
+ * @param {Message} message message sent
+ * @param {Member} member member to kick
+ * @param {string[]} args command line args
+ */
+function kick(client, message, member, args) {
     member
         .kick(getReason(args))
         .catch(err => {
-            console.log(err);
+            errorLog(client, message, err);
             return false;
         });
     return true;
@@ -38,7 +55,7 @@ module.exports.run = async (client, message, args) => {
                     //pop username off of args
                     args.shift();
                     //if kick was successful
-                    if (!member.hasPermission('KICK_MEMBERS') && kick(member, args)) {
+                    if (!member.hasPermission('KICK_MEMBERS') && kick(client, message, member, args)) {
                         const msg = new MessageEmbed()
                             .setColor(color)
                             .setTitle('Member kicked')
@@ -52,21 +69,21 @@ module.exports.run = async (client, message, args) => {
                             .setDescription(`Could not kick ${user.tag}`);
                         let m = await message.reply(msg);
                         await m.delete({ timeout: 5000 })
-                            .catch(err => console.log(err));
+                            .catch(err => errorLog(client, message, err));
                     }
                 } else {
                     //send error message and delete after 5s
-                    await invalidUser(message, 'kick');
+                    await invalidUser(client, message, 'kick');
                 }
             } else {
-                await selfUseError(message, 'kick');
+                await selfUseError(client, message, 'kick');
             }
         } else {
             //send error message and delete after 10s
-            await invalidUser(message, 'kick');
+            await invalidUser(client, message, 'kick');
         }
     } else {
         //send error message and delete after  5s
-        await noPermission(messsage, 'kick');
+        await noPermission(client, messsage, 'kick');
     }
 };

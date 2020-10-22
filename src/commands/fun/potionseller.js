@@ -1,9 +1,14 @@
+/**
+ * @author Ty Foster
+ * @version 2020.10.21
+ * Provides a list of iconic videos on youtube
+ */
 const { potionseller } = require('../util/help');
 
 module.exports.run = async (client, message, args) => {
   //if arguments were given
   if (args[0]) {
-    await potionseller(message); //inform user of proper usage
+    await potionseller(client, message); //inform user of proper usage
   }
   message.channel.send("https://youtu.be/R_FQU4KzN7A");
   message.channel.send("https://www.youtube.com/watch?v=JCy_TUQJen4");

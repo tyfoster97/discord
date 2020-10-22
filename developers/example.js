@@ -6,10 +6,10 @@
  */
 
 /**
- * @description this method checks if a number is even or odd
- * @param bar a number
- * @returns true if bar is even
- * @throws error if bar is not a number
+ * @summary this function determines if a number is even or odd
+ * @param {number} bar 
+ * @returns {boolean} true if even, false if odd
+ * @throws {Error} if bar is not a number
  */
 function foo(bar) {
     //if bar is not a number throw an error

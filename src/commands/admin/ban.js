@@ -1,8 +1,17 @@
 const { MessageEmbed } = require("discord.js");
 const { noPermission, selfUseError, invalidUser } = require("./errormsg");
-
+const { errorLog } = require('../../utils/log');
+/**
+ * @author Ty Foster
+ * @version 2020.09.24
+ * @summary implements ban command
+ */
 const botColor = process.env.COLOR;
 
+/**
+ * @summary generates ban reason from arguments
+ * @param {string[]} args arguments from command invokation
+ */
 function getReason(args) {
     let rsn = 'They were bad';
     //if a reason was given use that instead
@@ -12,35 +21,55 @@ function getReason(args) {
     return rsn;
 }
 
-//ban member
-function ban(member, args) {
+/**
+ * @summary bans member from a server
+ * @param {Client} client the client being used by the bot
+ * @param {Message} message the message invoking the command 
+ * @param {Member} member the member to ban 
+ * @param {string[]} args the command arguments
+ */
+function ban(client, message, member, args) {
+    //attenpt to ban the member
     member
         .ban({
+            //assign a reason
             reason: getReason(args),
         })
         .catch(err => {
-            console.log(err);
+            //catch an error, log to sever
+            errorLog(client, message, err);
             return false;
         });
     return true;
 };
 
-/* Handles command to ban a user */
+/**
+ * @summary main method for command execution
+ * @param {Client} client discord client used by _mombot
+ * @param {Message} message message invoking command
+ * @param {string[]} args command arguments
+ */
 module.exports.run = async (client, message, args) => {
-    //if author has permission to ban members
+    //get author as member
     const author = message.guild.member(message.author);
+    //if author can ban members
     if (author.hasPermission('BAN_MEMBERS')) {
+        //get mentioned user
         const user = message.mentions.users.first();
-        //if there is a mentioned user
+        //if the user is in the guild
         if (user) {
             //if author is trying to ban someone else
             if (message.author.username != user.username) {
+                //get user as member
                 const member = message.guild.member(user);
                 //if the member exists
                 if (member) {
                     args.shift(); //pop user name off of args
-                    //if ban was successful
+                    //if member being banned does not have
+                    //permission to ban members
+                    //and ban is successful
                     if (!member.hasPermission('BAN_MEMBERS') && ban(member, args)) {
+                        //inform success
                         const msg = new MessageEmbed()
                             .setColor(botColor)
                             .setTitle('Member banned')
@@ -48,28 +77,29 @@ module.exports.run = async (client, message, args) => {
                             .addField('Reason', getReason(args));
                         message.reply(msg);
                     } else {
+                        //inform failure
                         const msg = new MessageEmbed()
                             .setColor(botColor)
                             .setTitle('Unable to ban member')
                             .setDescription(`Could not ban ${user.tag}`);
                         let m = await message.reply(msg);
                         await m.delete({ timeout: 10000 })
-                            .catch(err => console.log(err));
+                            .catch(err => errorLog(client, message, err));
                     }
                 } else {
-                    //inform user the member could not be found
-                    await invalidUser(message, 'ban');
+                    //inform invalid user
+                    await invalidUser(client, message, 'ban');
                 }
             } else {
-                //cannot call command on yourself error
-                await selfUseError(message, 'ban');
+                //inform self use not allowed
+                await selfUseError(client, message, 'ban');
             }
         } else {
-            //inform user the member is not in the server
-            await invalidUser(message, 'ban');
+            //inform invalid user
+            await invalidUser(client, message, 'ban');
         }
     } else {
-        //inform user they do not have permissions
-        await noPermission(message, 'ban');
+        //inform invalid permissions
+        await noPermission(client, message, 'ban');
     }
 };
